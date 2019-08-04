@@ -13,7 +13,18 @@ namespace Springer
         IWebDriver driver;
         [SetUp]
         public void startbrowser()
-        { driver = new ChromeDriver("C:\\Program Files (x86)\\Google\\Chrome\\Application");
+        { driver = new ChromeDriver("C:\\");
+            driver.Url = "https://link.springer.com/";
         }
+        [Test]
+        public void searchtest()
+        { IWebElement searchbox = driver.FindElement(By.Id("query"));
+            searchbox.SendKeys("Multiphase flow");
+            driver.FindElement(By.Id("search")).Click();
+            IWebElement searchresults = driver.FindElement(By.Id("results-list"));
+            Assert.IsTrue(searchresults.Text.Contains("Experimental and Computational Multiphase Flow"), "FAIL: Search results do not contain searched for value");
+
+
+                }
     }
 }
